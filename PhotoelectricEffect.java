@@ -1,20 +1,14 @@
 package projekt;
 
 
-//import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-//import java.awt.Dimension;
 import java.awt.Graphics;
-//import java.awt.Dimension;
-//import java.awt.FlowLayout;
-//import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-//import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -22,13 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-//import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,14 +32,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-//import javax.swing.event.ChangeEvent;
-//import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
-//import java.util.Random;
 import java.util.ResourceBundle;
-//import java.sql.*;
-
 
 
 
@@ -61,7 +49,7 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 
 	JMenuBar menubar;
 	JMenu menu, language, windowpane;
-	JMenuItem menuZapisz, menuNowyplik, Polish, English, Rus, creators, effect;
+	JMenuItem menuZapisz, menuNowyplik, Polish, English, Rus, German, creators, effect;
 	JPanel PUpper, PDown, PLeft, PRight, DrawPanel;
 	JSlider slider;
 	JTextField text1;
@@ -80,7 +68,7 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 	String ang="en";
 	String country="US";
 	Locale l1 = new Locale(ang,country);
-	ResourceBundle r1 = ResourceBundle.getBundle("projekt.english/language",l1);
+	ResourceBundle r1 = ResourceBundle.getBundle("projekt/language_en_ENG",l1);
 	
 	//do obrazkow 
 	BufferedImage image; 
@@ -123,6 +111,10 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 		Rus.setActionCommand("rus");
 		Rus.addActionListener(this);
 		
+		German=new JMenuItem("GE");
+		German.setActionCommand("german");
+		German.addActionListener(this);
+		
 		windowpane = new JMenu("Info");
 		
 		creators = new JMenuItem(r1.getString("creators"));
@@ -131,14 +123,15 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 		
 		effect = new JMenuItem(r1.getString("effect"));
 		effect.setActionCommand("effect");
-		effect.addActionListener(this);
-		
+		effect.addActionListener(this); 	 
+		 
 		windowpane.add(creators);
 		windowpane.add(effect);
 		
 		language.add(English);
 		language.add(Polish);
 		language.add(Rus);
+		language.add(German); 
 		
 		menubar.add(menu);
 		menubar.add(language);
@@ -303,9 +296,11 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 		
 		start = new JButton("START/STOP");
 		start.setActionCommand("start");
+		start.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		start.addActionListener(this);
 		
 		text1 = new JTextField("0");
+		
 		
 		PRight.setLayout(new GridLayout(9,1)); 
 		PRight.add(frequency ,GridLayout(1,1));
@@ -317,8 +312,8 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 		PRight.add(Porcelana, GridLayout(7,1));
 		PRight.add(Kalafonia, GridLayout(8,1));
 		PRight.add(start, GridLayout(9,1));
-		Random r = new Random();
-		Color k = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255));
+		//Random r = new Random();
+		Color k = new Color(153, 153, 255);
 		start.setBackground(k);
 		
 		this.add(PRight, BorderLayout.LINE_START); 
@@ -398,12 +393,20 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 			//set default close operation
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
+		if (e.getActionCommand() == "effect")
+		{
+			//call the object of NewWindow and set visible true
+			Window3 frame = new Window3();
+			frame.setVisible(true);
+			//set default close operation
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		}
 		if (e.getActionCommand() == "polish")
 		{
 	    String pol="pl";
 		String kraj="PL";
 		Locale l2 = new Locale(pol,kraj);
-		ResourceBundle r2 = ResourceBundle.getBundle("projekt.polish/language_pl_PL",l2);
+		ResourceBundle r2 = ResourceBundle.getBundle("projekt/language_pl_PL",l2);
 		language.setText(r2.getString("language"));
 		frequency.setText(r2.getString("frequency"));
 		menuZapisz.setText(r2.getString("menuZapisz"));
@@ -438,7 +441,7 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 		String ru="ru";
 		String kraj="RUS";
 		Locale l3 = new Locale(ru,kraj);
-		ResourceBundle r3 = ResourceBundle.getBundle("projekt.russian/language_ru_RUS",l3);
+		ResourceBundle r3 = ResourceBundle.getBundle("projekt/language_ru_RUS",l3);
 		language.setText(r3.getString("language"));
 		frequency.setText(r3.getString("frequency"));
 		menuZapisz.setText(r3.getString("menuZapisz"));
@@ -450,6 +453,25 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 		Szklo.setText(r3.getString("Szklo"));
 		changeColor.setText(r3.getString("Tlo"));
 		//selectMaterial.setText(r3.getString("selectMaterial"));
+		}
+		if (e.getActionCommand() == "german")
+		{
+	    String ge="ge";
+		String kraj="GE";
+		Locale l4 = new Locale(ge,kraj);
+		ResourceBundle r4 = ResourceBundle.getBundle("projekt/language_ge_GE",l4);
+		language.setText(r4.getString("language"));
+		frequency.setText(r4.getString("frequency"));
+		menuZapisz.setText(r4.getString("menuZapisz"));
+		menuNowyplik.setText(r4.getString("menuNowyplik"));
+		creators.setText(r4.getString("creators"));
+		Ebonit.setText(r4.getString("Ebonit"));
+		Porcelana.setText(r4.getString("Porcelana"));
+		Kalafonia.setText(r4.getString("Kalafonia"));
+		Szklo.setText(r4.getString("Szklo"));
+		changeColor.setText(r4.getString("Tlo"));
+		effect.setText(r4.getString("effect"));
+		//selectMaterial.setText(r4.getString("selectMaterial"));
 		}
 	}
 			
@@ -464,7 +486,7 @@ public class PhotoelectricEffect extends JFrame implements ActionListener {
 			try 
 			{
 				PhotoelectricEffect ramka = new  PhotoelectricEffect();
-				ramka.setTitle("Symulacja Efektu Fotoelektrycznego");
+				ramka.setTitle("Photoelectric Effect");
 				ramka.setVisible(true);				
 			} 
 			catch (Exception e)

@@ -1,5 +1,5 @@
 package projekt;
-
+// to mia³o dzia³aæ a nie dzia³a :(
 import java.awt.Color;
 
 import javax.swing.ButtonGroup;
